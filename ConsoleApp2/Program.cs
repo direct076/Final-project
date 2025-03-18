@@ -49,8 +49,8 @@ while (true)
             Console.Write("Petlor");
             Console.Write("Gas");
             Console.Write("Disel");
-            Console.Write("Methanol");
-
+            Console.Write("Bio-Disel");
+            
             break;
     }
 }
