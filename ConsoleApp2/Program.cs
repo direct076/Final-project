@@ -27,11 +27,12 @@ Console.WriteLine("\t2. View available fuel of each type");
 Console.WriteLine("\t3. Save to file");
 Console.WriteLine("\t4. Load from file");
 Console.WriteLine("\t5. Delete fuel");
-Console.WriteLine("\t6. Change the price of fuel");
-Console.WriteLine("\t7. Refuelling, a coffee machine");
-Console.WriteLine("\t8. Cache withdrawal (for fuel, for coffee)");
-Console.WriteLine("\t9. Display of statistics on fuel sales in litres and UAH.");
-Console.WriteLine("\t10. Withdrawal of earned funds (each category separately and in total)");
+Console.WriteLine("\t6. Find Product");
+Console.WriteLine("\t7. Change the price of fuel");
+Console.WriteLine("\t8. Refuelling, a coffee machine");
+Console.WriteLine("\t9. Cache withdrawal (for fuel, for coffee)");
+Console.WriteLine("\t10. Display of statistics on fuel sales in litres and UAH.");
+Console.WriteLine("\t11. Withdrawal of earned funds (each category separately and in total)");
 
 List<Fuel> fuels = new();
 
@@ -86,7 +87,7 @@ while (true)
         
         case 5:
             for (int i = 0; i < fuels.Count; ++i)
-                Console.WriteLine($"[{i}] FUel:  " + fuels[i].Type);
+                Console.WriteLine($"[{i}] Fuel:  " + fuels[i].Type);
             int numToDelete = Convert.ToInt32(Console.ReadLine());
            
             if (numToDelete < 0 || numToDelete >= fuels.Count)
@@ -96,9 +97,23 @@ while (true)
             }
 
             fuels.RemoveAt(numToDelete);
-            Console.WriteLine("Product deleted successfully!");
+            Console.WriteLine("Fuel deleted successfully!");
             break;
             
+            case 6:
+            Console.Write("Enter fuel name to find: ");
+            string nameToFind = Console.ReadLine().Trim();
+
+            var foundItem = fuels.Find(x => x.Type.Contains(nameToFind));
+
+            if (foundItem == null)
+            {
+                Console.WriteLine("Product not found!");
+                break;
+            }
+
+            foundItem.Show();
+            break;
 
 
     }
@@ -110,5 +125,11 @@ public class Fuel
     public string Type { get; set; }
     public double Price { get; set; }
     public double Volume { get; set; }
-    
+    public void Show()
+    {
+        Console.WriteLine("------- fuel ---------");
+        Console.WriteLine($":Type {this.Type}");
+        Console.WriteLine($"Volume: {this.Volume}");
+        Console.WriteLine($"Price: {this.Price}");
+    }
 }
