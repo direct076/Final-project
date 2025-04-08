@@ -21,15 +21,17 @@ Console.OutputEncoding = System.Text.Encoding.UTF8; // для укр. мови
 Console.WriteLine("---------- Welcome to Gas Staton BDCM ----------");
 
 Console.WriteLine("\tMENU:");
+Console.WriteLine("\t0. Exit");
 Console.WriteLine("\t1. Refill the petrol station with the appropriate type of fuel");
 Console.WriteLine("\t2. View available fuel of each type");
 Console.WriteLine("\t3. Save to file");
 Console.WriteLine("\t4. Load from file");
-Console.WriteLine("\t5. Change the price of fuel");
-Console.WriteLine("\t6. Refuelling, a coffee machine");
-Console.WriteLine("\t7. Cache withdrawal (for fuel, for coffee)");
-Console.WriteLine("\t8. Display of statistics on fuel sales in litres and UAH.");
-Console.WriteLine("\t9. Withdrawal of earned funds (each category separately and in total)");
+Console.WriteLine("\t5. Delete fuel");
+Console.WriteLine("\t6. Change the price of fuel");
+Console.WriteLine("\t7. Refuelling, a coffee machine");
+Console.WriteLine("\t8. Cache withdrawal (for fuel, for coffee)");
+Console.WriteLine("\t9. Display of statistics on fuel sales in litres and UAH.");
+Console.WriteLine("\t10. Withdrawal of earned funds (each category separately and in total)");
 
 List<Fuel> fuels = new();
 
@@ -40,6 +42,10 @@ while (true)
 
     switch (choice)
     {
+        case 0:
+            Environment.Exit(0);
+            break;
+
         case 1:
             var newItem = new Fuel();
 
@@ -77,9 +83,24 @@ while (true)
             string jsonToLoad = File.ReadAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/products_db.json");
             fuels = JsonSerializer.Deserialize<List<Fuel>>(jsonToLoad);
             break;
-
-       
+        
+        case 5:
+            for (int i = 0; i < fuels.Count; ++i)
+                Console.WriteLine($"[{i}] FUel:  " + fuels[i].Type);
+            int numToDelete = Convert.ToInt32(Console.ReadLine());
            
+            if (numToDelete < 0 || numToDelete >= fuels.Count)
+            {
+                Console.WriteLine("Number out of range!");
+                break;
+            }
+
+            fuels.RemoveAt(numToDelete);
+            Console.WriteLine("Product deleted successfully!");
+            break;
+            
+
+
     }
 
      
