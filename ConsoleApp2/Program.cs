@@ -56,7 +56,7 @@ while (true)
             newItem.Price = Convert.ToDouble(Console.ReadLine());
             Console.Write("Enter product volume: ");
             newItem.Volume = Convert.ToInt32(Console.ReadLine());
-           
+
 
             fuels.Add(newItem);
             break;
@@ -84,12 +84,12 @@ while (true)
             string jsonToLoad = File.ReadAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/products_db.json");
             fuels = JsonSerializer.Deserialize<List<Fuel>>(jsonToLoad);
             break;
-        
+
         case 5:
             for (int i = 0; i < fuels.Count; ++i)
                 Console.WriteLine($"[{i}] Fuel:  " + fuels[i].Type);
             int numToDelete = Convert.ToInt32(Console.ReadLine());
-           
+
             if (numToDelete < 0 || numToDelete >= fuels.Count)
             {
                 Console.WriteLine("Number out of range!");
@@ -99,8 +99,8 @@ while (true)
             fuels.RemoveAt(numToDelete);
             Console.WriteLine("Fuel deleted successfully!");
             break;
-            
-            case 6:
+
+        case 6:
             Console.Write("Enter fuel name to find: ");
             string nameToFind = Console.ReadLine().Trim();
 
@@ -118,18 +118,5 @@ while (true)
 
     }
 
-     
-}
-public class Fuel
-{
-    public string Type { get; set; }
-    public double Price { get; set; }
-    public double Volume { get; set; }
-    public void Show()
-    {
-        Console.WriteLine("------- fuel ---------");
-        Console.WriteLine($":Type {this.Type}");
-        Console.WriteLine($"Volume: {this.Volume}");
-        Console.WriteLine($"Price: {this.Price}");
-    }
+
 }
